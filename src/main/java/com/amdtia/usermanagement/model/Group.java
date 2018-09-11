@@ -12,13 +12,14 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @OneToMany
-
+    private String description;
+    @ManyToMany
     private Set<User> users = new HashSet<>();
 
 
-    public Group(String name) {
+    public Group(String name, String description) {
         this.name = name;
+        this.description = description;
     }
 
     public String getName() {
@@ -42,5 +43,13 @@ public class Group {
 
     public void setUser(Set<User> users) {
         this.users = users;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

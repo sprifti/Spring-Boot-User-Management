@@ -1,9 +1,9 @@
 package com.amdtia.usermanagement.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 public class User {
@@ -14,12 +14,21 @@ public class User {
     private String email;
     private String username;
     private String password;
+    private String firstName;
+    private String lastName;
 
-    public User(String email, String username, String password) {
+    @ManyToMany(mappedBy = "users")
+    private Set<Group> groups = new HashSet<>();
+
+    public User(String email, String username, String password, String firstName, String lastName) {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
+
+
 
     public Long getId() {
         return id;
@@ -52,4 +61,34 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
+
