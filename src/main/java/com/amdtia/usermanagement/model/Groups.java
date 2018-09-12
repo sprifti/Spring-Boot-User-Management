@@ -6,7 +6,7 @@ import java.util.Set;
 
 
 @Entity
-public class Group {
+public class Groups {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -14,10 +14,18 @@ public class Group {
     private String name;
     private String description;
     @ManyToMany
+    @JoinTable(name = "group_users", joinColumns = @JoinColumn(name = "groups_id"),
+    inverseJoinColumns = @JoinColumn(name = "users_id"))
     private Set<User> users = new HashSet<>();
 
+    @ManyToMany
+    @JoinTable(name = "permissions_groups", joinColumns = @JoinColumn(name = "groups_id"),
+            inverseJoinColumns = @JoinColumn(name = "permissions_id"))
+    private Set<Permissions> permissions = new HashSet<>();
 
-    public Group(String name, String description) {
+
+
+    public Groups(String name, String description) {
         this.name = name;
         this.description = description;
     }
@@ -51,5 +59,13 @@ public class Group {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public Set<Permissions> getPermissions() {
+        return permissions;
+    }
+
+    public void setPermissions(Set<Permissions> permissions) {
+        this.permissions = permissions;
     }
 }

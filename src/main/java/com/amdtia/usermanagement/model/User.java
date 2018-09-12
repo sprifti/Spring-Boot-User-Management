@@ -18,7 +18,7 @@ public class User {
     private String lastName;
 
     @ManyToMany(mappedBy = "users")
-    private Set<Group> groups = new HashSet<>();
+    private Set<Groups> groups = new HashSet<>();
 
     public User(String email, String username, String password, String firstName, String lastName) {
         this.email = email;
