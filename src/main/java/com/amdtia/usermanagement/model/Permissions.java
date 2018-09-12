@@ -13,8 +13,9 @@ public class Permissions {
     private Long id;
     private String title;
     private String description;
-
-    @ManyToMany(mappedBy = "permissions")
+    @ManyToMany
+    @JoinTable(name = "groups_permissions", joinColumns = @JoinColumn(name = "permissions_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<Groups> groups = new HashSet<>();
 
 

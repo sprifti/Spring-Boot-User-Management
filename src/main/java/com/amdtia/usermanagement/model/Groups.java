@@ -14,13 +14,12 @@ public class Groups {
     private String name;
     private String description;
     @ManyToMany
-    @JoinTable(name = "group_users", joinColumns = @JoinColumn(name = "groups_id"),
+    @JoinTable(name = "groups_user", joinColumns = @JoinColumn(name = "groups_id"),
     inverseJoinColumns = @JoinColumn(name = "users_id"))
     private Set<User> users = new HashSet<>();
 
-    @ManyToMany
-    @JoinTable(name = "permissions_groups", joinColumns = @JoinColumn(name = "groups_id"),
-            inverseJoinColumns = @JoinColumn(name = "permissions_id"))
+    @ManyToMany(mappedBy = "groups")
+
     private Set<Permissions> permissions = new HashSet<>();
 
 
