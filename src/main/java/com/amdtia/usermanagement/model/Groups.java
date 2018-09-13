@@ -29,6 +29,9 @@ public class Groups {
         this.description = description;
     }
 
+    public Groups() {
+    }
+
     public String getName() {
         return name;
     }

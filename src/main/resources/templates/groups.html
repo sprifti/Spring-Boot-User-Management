@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <title>Groups</title>
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+<div class="container-fluid">
+    <div class="navbar-header">
+        <a th:href="@{/mainPage}" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> Home</a>
+    </div>
+    <!--<ul class="nav navbar-nav navbar-right">-->
+        <!--<li><a th:href="@{/groups}"><span class="glyphicon glyphicon-list-alt"></span> Groups</a></li>-->
+        <!--<li><a th:href="@{/index}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>-->
+
+    <!--</ul>-->
+</div>
+
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <a style="margin-top: 25%" class="btn btn-primary" th:href="@{/showFormGroup}" >Add Group</a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 5%">
+        <div class="col-md-4">
+            <h3>List</h3>
+        </div>
+    </div>
+</div>
+</body>
+</html>
