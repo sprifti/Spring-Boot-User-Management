@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import static java.time.zone.ZoneRulesProvider.refresh;
+
 @Controller
 public class GroupController {
     GroupRepository groupRepository;
@@ -17,10 +19,7 @@ public class GroupController {
         this.groupRepository = groupRepository;
     }
 
-    @RequestMapping("groups")
-    public String getGroup(Model model){
-        return "groups";
-    }
+
 
     @RequestMapping("showFormGroup")
         public String showFormGroup(Model model){
@@ -29,10 +28,20 @@ public class GroupController {
         return "addGroup";
     }
 
-    @PostMapping("addGroup")
-    public String addGroup(@ModelAttribute Groups groups){
-        groupRepository.save(groups);
-        return "mainPage";
+    @PostMapping("groups")
+    public String addGroup(@ModelAttribute Groups group,Model model){
+        groupRepository.save(group);
+
+     return getGroupList(model);
     }
+
+    @RequestMapping("groups")
+    public String getGroupList(Model model){
+        model.addAttribute("groups",groupRepository.findAll());
+        return "groups";
+    }
+
+
+
 
 }

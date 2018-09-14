@@ -9,9 +9,9 @@ import java.util.Set;
 public class Groups {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String name;
+    private String groupName;
     private String description;
     @ManyToMany
     @JoinTable(name = "groups_user", joinColumns = @JoinColumn(name = "groups_id"),
@@ -24,21 +24,22 @@ public class Groups {
 
 
 
-    public Groups(String name, String description) {
-        this.name = name;
+    public Groups(String groupName, String description) {
+        this.groupName = groupName;
         this.description = description;
     }
 
     public Groups() {
     }
 
-    public String getName() {
-        return name;
+    public String getGroupName() {
+        return groupName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setGroupName(String groupName) {
+        this.groupName = groupName;
     }
+
     public Long getId() {
         return id;
     }
