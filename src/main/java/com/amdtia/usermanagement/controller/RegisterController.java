@@ -7,19 +7,24 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+//import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.Valid;
+
 
 @Controller
 @RequestMapping("register")
 public class RegisterController implements WebMvcConfigurer {
     UserRepository userRepository;
+    private static final String USERNAME_PATTERN = "^[a-zA-Z0-9_-]";
+
 
     public RegisterController(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -42,11 +47,21 @@ public class RegisterController implements WebMvcConfigurer {
     public String registerUser(@Valid User user, BindingResult bindingResult){
 
 
-        if(userRepository.findByEmail(user.getEmail()) != null){
-            bindingResult.rejectValue("email", "error.user", "An account already exists with this email.");
+        if(user.getPassword().length()<8){
+            bindingResult.rejectValue("password", "error.user", "*Password must contain more than 8 characters");
         }
+
+//        if(user.getUsername().matches(USERNAME_PATTERN)){
+//            bindingResult.rejectValue("username", "error.user", "*Username can only contain letters and numbers");
+//        }
+
+
+        if(userRepository.findByEmail(user.getEmail()) != null){
+            bindingResult.rejectValue("email", "error.user", "*An account already exists with this email.");
+        }
+
         if(userRepository.findByUsername(user.getUsername())!=null){
-            bindingResult.rejectValue("username", "error.user", "An account already exists with this username.");
+            bindingResult.rejectValue("username", "error.user", "*An account already exists with this username.");
         }
 
         if(bindingResult.hasErrors()){
@@ -54,6 +69,8 @@ public class RegisterController implements WebMvcConfigurer {
         }
         else {
 
+//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+//            user.setPassword(passwordEncoder.encode(user.getPassword()));
             userRepository.save(user);
             return "mainPage";
         }

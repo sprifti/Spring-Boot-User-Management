@@ -44,13 +44,10 @@ public class GroupController implements WebMvcConfigurer {
 
     @PostMapping("addGroups")
     public String checkGroupInfo(@Valid Groups groups, BindingResult bindingResult){
+        if(groups.getDescription().length()>244){
+            bindingResult.rejectValue("description", "error.groups", "*Must contain 255 characters");
+        }
 
-
-//
-//        if(groups.getGroupName().length()<2){
-//            ObjectError groupName = new ObjectError(groups.getGroupName(),"small size");
-//            bindingResult.addError(groupName);
-//        }
         if(bindingResult.hasErrors()){
             return "addGroup";
         }
