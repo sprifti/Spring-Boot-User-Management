@@ -6,21 +6,46 @@
     <title>Home</title>
 
 </head>
+
 <body>
 
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <a th:href="@{/mainPage}" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> Home</a>
-            <a th:href="@{/profile}" class="navbar-brand"><span class="glyphicon glyphicon-user"></span> Profile</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a th:href="@{/groups}"><span class="glyphicon glyphicon-list-alt"></span> Groups</a></li>
             <li><a th:href="@{/index}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-
         </ul>
     </div>
-
 </nav>
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+            <br />
+            <br />
+         <div class="panel panel-primary">
+             <div class="panel-heading">
+                 <h4 style="margin-left: 40%">Profile</h4>
+             </div>
+             <div class="panel-body">
+                 <img src="profile.jpg" style="width: 100px;">
+                 <label>First Name:</label>
+                 <label>Last Name:</label>
+                 </div>
+         </div>
+
+             </div>
+         </div>
+
+        </div>
+    </div>
+    <br />
+
+</div>
+
+
 </body>
 </html>

@@ -1,6 +1,8 @@
 package com.amdtia.usermanagement.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -11,7 +13,11 @@ public class Groups {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+//    @NotNull @Size( min = 5, max = 15)
     private String groupName;
+
+    @NotNull
+    @Size(min = 20, max = 254)
     private String description;
     @ManyToMany
     @JoinTable(name = "groups_user", joinColumns = @JoinColumn(name = "groups_id"),

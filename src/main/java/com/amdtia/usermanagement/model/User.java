@@ -1,6 +1,10 @@
 package com.amdtia.usermanagement.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -11,10 +15,19 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
+    @Column(unique = true)
+    @Email
     private String email;
+    @NotBlank
+    @Column(unique = true)
     private String username;
+    @NotBlank
+    @Size(min = 8, max = 50)
     private String password;
+    @NotBlank
     private String firstName;
+    @NotBlank
     private String lastName;
 
     @ManyToMany(mappedBy = "users")

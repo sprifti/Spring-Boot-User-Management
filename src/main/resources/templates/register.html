@@ -32,22 +32,27 @@
                                 <div class=" form-group" >
                                     <label>First Name</label>
                                     <input type="text" class="form-control" th:field="*{firstName}" />
+                                    <label th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">firstName Error</label>
                                 </div>
                                 <div class=" form-group">
                                     <label>Last Name</label><br />
                                     <input type="text" class="form-control" th:field="*{lastName}" />
+                                    <label th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">lastName Error</label>
                                 </div>
                                 <div class=" form-group">
                                     <label>Email </label><br />
                                     <input type="text" class="form-control" th:field="*{email}" />
+                                    <label th:if="${#fields.hasErrors('email')}" th:errors="*{email}">email Error</label>
                                 </div>
                                 <div class="form-group">
                                     <label>Username</label><br />
                                     <input type="text" class="form-control" th:field="*{username}" />
+                                    <label th:if="${#fields.hasErrors('username')}" th:errors="*{username}">username Error</label>
                                 </div>
                                 <div class=" form-group">
                                     <label>Password</label><br />
                                     <input type="password" class="form-control" th:field="*{password}" />
+                                    <label th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</label>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" class="btn btn-primary" value="Register" />
