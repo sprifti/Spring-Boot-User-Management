@@ -45,7 +45,9 @@ public class RegisterController implements WebMvcConfigurer {
 
     @PostMapping
     public String registerUser(@Valid User user, BindingResult bindingResult){
-
+        if(user.getPassword().length()<8){
+            bindingResult.rejectValue("password", "error.user", "*Password must contain more than 8 characters");
+        }
 
         if(user.getPassword().length()<8){
             bindingResult.rejectValue("password", "error.user", "*Password must contain more than 8 characters");

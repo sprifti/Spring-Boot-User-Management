@@ -12,9 +12,10 @@
     <div class="container-fluid">
         <div class="navbar-header">
             <a th:href="@{/mainPage}" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> Home</a>
-            <a th:href="@{/profile}" class="navbar-brand"><span class="glyphicon glyphicon-user"></span> Profile</a>
+
         </div>
         <ul class="nav navbar-nav navbar-right">
+            <li><a th:href="@{/users}"><span class="glyphicon glyphicon-user"></span> Users</a></li>
             <li><a th:href="@{/groups}"><span class="glyphicon glyphicon-list-alt"></span> Groups</a></li>
             <li><a th:href="@{/index}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
 

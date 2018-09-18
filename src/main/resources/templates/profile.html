@@ -23,7 +23,7 @@
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-3">
+        <div class="col-md-2">
             <br />
             <br />
          <div class="panel panel-primary">
@@ -31,18 +31,34 @@
                  <h4 style="margin-left: 40%">Profile</h4>
              </div>
              <div class="panel-body">
-                 <img src="profile.jpg" style="width: 100px;">
-                 <label>First Name:</label>
-                 <label>Last Name:</label>
+                 <div class="col-md-2">
+                     <img src="profile.jpg" style="width: 100px;">
                  </div>
-         </div>
 
+                 <div class="col-md-8" >
+                 <label>First Name:</label>
+                 <span th:text="${user.firstName}">123</span> <br />
+                 <label>Last Name:</label>
+                 <span th:text="${user.lastName}">123</span>
+                 </div>
              </div>
          </div>
+        </div>
+
+
+<div class="col-md-5">
+    <br />
+    <br />
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h4>Groups</h4>
+        </div>
+        <div class="panel-body">
 
         </div>
     </div>
-    <br />
+</div>
+</div>
 
 </div>
 

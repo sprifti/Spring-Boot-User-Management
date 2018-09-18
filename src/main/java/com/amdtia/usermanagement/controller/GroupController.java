@@ -6,10 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -44,10 +41,12 @@ public class GroupController implements WebMvcConfigurer {
 
     @PostMapping("addGroups")
     public String checkGroupInfo(@Valid Groups groups, BindingResult bindingResult){
-        if(groups.getDescription().length()>244){
-            bindingResult.rejectValue("description", "error.groups", "*Must contain 255 characters");
-        }
 
+
+
+        if(groups.getGroupName().length()<4){
+            bindingResult.rejectValue("groupName", "error.groups","*Must have more than 4 characters");
+        }
         if(bindingResult.hasErrors()){
             return "addGroup";
         }
@@ -61,11 +60,22 @@ public class GroupController implements WebMvcConfigurer {
         return "groups";
     }
 
-//    @RequestMapping("delete")
-//    public String deleteGroup(@ModelAttribute Groups group){
-//        groupRepository.delete(group);
-//        return  "mainPage";
-//    }
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String deleteGroup(@RequestParam(name="Id")Long Id) {
+        groupRepository.deleteById(Id);
+        return  "redirect:groups";
+    }
+
+
+
+    @RequestMapping(value = "/update", method = RequestMethod.POST)
+    public String updateGroup(@RequestParam(name="Id")Long Id, @RequestParam(name="groupName")String groupName, @RequestParam(name="description")String description){
+        Long id = Id;
+        String name = groupName;
+
+        boolean update = true;
+        return "addGroup";
+    }
 
 
 

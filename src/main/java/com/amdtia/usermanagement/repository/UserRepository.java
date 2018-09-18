@@ -1,11 +1,13 @@
 package com.amdtia.usermanagement.repository;
 
 import com.amdtia.usermanagement.model.User;
-import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
 
 import java.util.Optional;
 
-public interface UserRepository extends CrudRepository<User,Long> {
+public interface UserRepository extends JpaRepository<User,Long> {
 
     @Override
     Optional<User> findById(Long aLong);

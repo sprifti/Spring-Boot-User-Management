@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <title>Users</title>
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a th:href="@{/mainPage}" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+
+    </div>
+
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+
+
+        </div>
+    </div>
+    <div class="row" style="margin-top: 5%">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+
+            <h3>Users</h3>
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr scope="row">
+                    <td scope="col">Id</td>
+                    <td scope="col">Username</td>
+                    <td scope="col">Email</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr scope="row" th:each="users : ${users}">
+                    <td scope="col" th:text="${users.Id}">1</td>
+                    <td scope="col" th:text="${users.username}" >123</td>
+                    <td scope="col" th:text="${users.email}">4444</td>
+
+                    <td>
+                        <form th:action="@{/deleteUser}" method="POST">
+                            <input type="hidden" th:value="${users.Id}" name="Id" >
+                            <input class="btn-link" type="submit" value="Delete">
+                        </form>
+
+                    </td>
+                    <td>
+                        <form th:action="@{/profile}" method="POST">
+                            <input type="hidden" th:value="${users.email}" name="email" >
+                            <input class="btn-link" type="submit" value="View profile">
+                        </form>
+
+                    </td>
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>
