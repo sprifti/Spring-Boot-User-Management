@@ -54,7 +54,15 @@
             <h4>Groups</h4>
         </div>
         <div class="panel-body">
+            <form >
+                <select   name="Groups" multiple style="width: 100px">
+                    <option th:each="groups : ${groups}" th:value="${groups.Id}" th:text="${groups.groupName}">Group</option>
+                </select>
+                <br />
+                <input type="submit" value="Add">
+            </form>
 
+            <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
         </div>
     </div>
 </div>

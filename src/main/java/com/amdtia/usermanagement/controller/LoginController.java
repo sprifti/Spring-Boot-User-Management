@@ -8,6 +8,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -35,13 +36,25 @@ public class LoginController implements WebMvcConfigurer {
         return "login";
     }
 
+
+
     @PostMapping
-    public String loginUser(@Valid User user, BindingResult bindingResult){
+    public String loginUser(@Valid User user, BindingResult bindingResult,Model model){
+
+        User users = userRepository.findByEmail(user.getEmail());
+
         if(userRepository.findByEmail(user.getEmail())==null){
             bindingResult.rejectValue("email", "error.user", "*This account doesn't exists");
         }
         else{
-//ask if  the password matches...
+
+            if(user.getPassword().equals( users.getPassword())){
+                return "redirect:mainPage";
+            }
+            else{
+                bindingResult.rejectValue("password", "error.user", "*Password incorrect");
+            }
+
         }
         if(bindingResult.hasErrors()){
             return "login";
