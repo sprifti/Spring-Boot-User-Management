@@ -21,54 +21,104 @@
 </nav>
 
 <div class="container-fluid">
+
     <div class="row">
         <div class="col-md-3"></div>
-        <div class="col-md-2">
-            <br />
-            <br />
-         <div class="panel panel-primary">
-             <div class="panel-heading">
-                 <h4 style="margin-left: 40%">Profile</h4>
-             </div>
-             <div class="panel-body">
-                 <div class="col-md-2">
-                     <img src="profile.jpg" style="width: 100px;">
-                 </div>
+        <div class="col-md-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 style="margin-left:40%;">Profile</h4>
+                </div>
+                <div class="panel-body ">
+                    <img class="col-md-6"  src="profile.jpg">
+                    <label>First Name:</label>
+                    <span th:text="${user.firstName}">User</span> <hr />
+                    <label>Last Name:</label>
+                    <span th:text="${user.lastName}">User</span> <hr>
 
-                 <div class="col-md-8" >
-                 <label>First Name:</label>
-                 <span th:text="${user.firstName}">123</span> <br />
-                 <label>Last Name:</label>
-                 <span th:text="${user.lastName}">123</span>
-                 </div>
-             </div>
-         </div>
+                </div>
+            </div>
         </div>
 
 
-<div class="col-md-5">
-    <br />
-    <br />
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h4>Groups</h4>
-        </div>
-        <div class="panel-body">
-            <form >
-                <select   name="Groups" multiple style="width: 100px">
-                    <option th:each="groups : ${groups}" th:value="${groups.Id}" th:text="${groups.groupName}">Group</option>
-                </select>
-                <br />
-                <input type="submit" value="Add">
-            </form>
 
-            <p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
-        </div>
-    </div>
-</div>
-</div>
 
+
+
+
+        <div class="col-md-3"></div>
+        <div class="col-md-4">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4 style="margin-left:40%;">Groups</h4>
+                </div>
+                <div class="panel-body">
+                    <h4>Member of:</h4>
+                    <div></div> <!--groups ne te cilat ben pjese user-->
+                    <div>
+                        <form >
+                        <select   name="Groups" multiple style="width: 100px">
+                        <option th:each="groups : ${groups}" th:value="${groups.Id}" th:text="${groups.groupName}">Group</option>
+                        </select>
+                        <br />
+                        <input type="submit" value="Add"
+                        ><p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
+</div>
+<!--<div class="container-fluid">-->
+    <!--<div class="row">-->
+        <!--<div class="col-md-3"></div>-->
+        <!--<div class="col-md-3">-->
+            <!--<br />-->
+            <!--<br />-->
+         <!--<div class="panel panel-primary">-->
+             <!--<div class="panel-heading">-->
+                 <!--<h4 style="margin-left: 40%">Profile</h4>-->
+             <!--</div>-->
+             <!--<div class="panel-body">-->
+                 <!--<div class="col-md-2">-->
+                     <!--<img src="../profile.jpg" >-->
+                 <!--</div>-->
+
+                 <!--<div class="col-md-3" >-->
+                 <!--<label>First Name:</label>-->
+                 <!--<span th:text="${user.firstName}">123</span> <br />-->
+                 <!--<label>Last Name:</label>-->
+                 <!--<span th:text="${user.lastName}">123</span>-->
+                 <!--</div>-->
+             <!--</div>-->
+         <!--</div>-->
+        <!--</div>-->
+
+
+<!--<div class="col-md-5">-->
+    <!--<br />-->
+    <!--<br />-->
+    <!--<div class="panel panel-primary">-->
+        <!--<div class="panel-heading">-->
+            <!--<h4>Groups</h4>-->
+        <!--</div>-->
+        <!--<div class="panel-body">-->
+            <!--<form >-->
+                <!--<select   name="Groups" multiple style="width: 100px">-->
+                    <!--<option th:each="groups : ${groups}" th:value="${groups.Id}" th:text="${groups.groupName}">Group</option>-->
+                <!--</select>-->
+                <!--<br />-->
+                <!--<input type="submit" value="Add">-->
+            <!--</form>-->
+
+            <!--<p>Hold down the Ctrl (windows) / Command (Mac) button to select multiple options.</p>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--</div>-->
 
 
 </body>

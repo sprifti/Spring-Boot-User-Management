@@ -37,4 +37,11 @@ public class UserController implements WebMvcConfigurer {
         return  "redirect:users";
     }
 
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public String updateUser(@RequestParam(name="email")String email,Model model) {
+        model.addAttribute("user", userRepository.findByEmail(email));
+        return "register";
+
+    }
+
 }

@@ -8,19 +8,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 
 @Controller
-@RequestMapping("register")
+
 public class RegisterController implements WebMvcConfigurer {
     UserRepository userRepository;
     private static final String USERNAME_PATTERN = "^[a-zA-Z0-9_-]";
@@ -35,52 +33,81 @@ public class RegisterController implements WebMvcConfigurer {
         registry.addViewController("register").setViewName("register");
     }
 
-    @GetMapping
+    @GetMapping("register")
     public String getRegister(Model model){
         User user = new User();
         model.addAttribute("user",user);
         return "register";
     }
 
+    @PostMapping("register")
+    public String updateOrSave(@RequestParam(name="id")Long id,@Valid  User user, BindingResult bindingResult){
+        if(id==null){
+            validateRegister(user,bindingResult);
+        }
+        else
+            if(id>0){
+            validateUpdate(user,bindingResult);
+        }
+        //return a view
+    }
 
-    @PostMapping
-    public String registerUser(@Valid User user, BindingResult bindingResult){
-        if(user.getPassword().length()<8){
+
+
+    public String validateRegister(@Valid User user, BindingResult bindingResult){
+        if (user.getPassword().length() < 8) {
             bindingResult.rejectValue("password", "error.user", "*Password must contain more than 8 characters");
         }
 
-        if(user.getPassword().length()<8){
-            bindingResult.rejectValue("password", "error.user", "*Password must contain more than 8 characters");
-        }
-
-//        if(user.getUsername().matches(USERNAME_PATTERN)){
-//            bindingResult.rejectValue("username", "error.user", "*Username can only contain letters and numbers");
-//        }
-
-
-        if(userRepository.findByEmail(user.getEmail()) != null){
+        if (userRepository.findByEmail(user.getEmail()) != null) {
             bindingResult.rejectValue("email", "error.user", "*An account already exists with this email.");
         }
 
-        if(userRepository.findByUsername(user.getUsername())!=null){
+        if (userRepository.findByUsername(user.getUsername()) != null) {
             bindingResult.rejectValue("username", "error.user", "*An account already exists with this username.");
         }
 
         if(bindingResult.hasErrors()){
             return "register";
         }
-        else {
-
-//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
+        else{
             userRepository.save(user);
-            return "mainPage";
+            return "redirect:users";
+        }
+    }
+
+
+
+    public String validateUpdate(@Valid User user, BindingResult bindingResult){
+
+        User users = userRepository.findByEmail(user.getEmail());
+
+        if(users.getId()>0){
+            bindingResult.rejectValue("email", "error.user", "*An account already exists with this email.");
+        }
+        if(user.getPassword().equals("")){
+
+            user.setPassword(users.getPassword());
+        }
+        else{
+            if (user.getPassword().length() < 8) {
+                bindingResult.rejectValue("password", "error.user", "*Password must contain more than 8 characters");
+            }
         }
 
 
+        if(bindingResult.hasErrors()){
+            return "register";
+        }
+        else {
 
+            userRepository.save(user);
+            return "redirect:users";
 
+        }
 
     }
+
+
 
 }

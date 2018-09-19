@@ -9,6 +9,7 @@ import java.util.Optional;
 public interface GroupRepository extends JpaRepository<Groups,Long> {
     @Override
     Optional<Groups> findById(Long aLong);
+     Groups findByGroupName(String groupName);
 
 
 }

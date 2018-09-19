@@ -43,6 +43,14 @@
                     <td scope="col" th:text="${users.Id}">1</td>
                     <td scope="col" th:text="${users.username}" >123</td>
                     <td scope="col" th:text="${users.email}">4444</td>
+                    <td>
+                        <form th:action="@{/updateUser}" method="POST">
+
+                            <input type="hidden" th:value="${users.email}" name="email" >
+                            <input class="btn-link" type="submit" value="Update">
+                        </form>
+
+                    </td>
 
                     <td>
                         <form th:action="@{/deleteUser}" method="POST">

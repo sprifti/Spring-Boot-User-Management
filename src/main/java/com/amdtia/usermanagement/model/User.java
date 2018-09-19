@@ -22,7 +22,7 @@ public class User {
     @NotBlank
     @Column(unique = true)
     private String username;
-    @NotBlank
+
     private String password;
     @NotBlank
     private String firstName;
@@ -36,6 +36,13 @@ public class User {
         this.email = email;
         this.username = username;
         this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public User(@NotBlank @Email String email, @NotBlank String username, @NotBlank String firstName, @NotBlank String lastName) {
+        this.email = email;
+        this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
     }

@@ -14,7 +14,7 @@ public class Groups {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-//    @NotNull @Size( min = 5, max = 15)
+    @Column(unique = true)
     private String groupName;
 
     @NotBlank

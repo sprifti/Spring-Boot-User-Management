@@ -23,13 +23,14 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading">Create a new group</div>
+                <div class="panel-heading"><h4 th:if="${groups.id<0}" >Create a new group</h4> <h4 th:if="${groups.id>0}">Update group</h4></div>
                 <div class="panel-body">
                     <form th:action="@{/addGroups}" th:object="${groups}" method="post" >
 
                         <div class=" form-group" >
                             <label>Name</label>
-                            <input type="text" class="form-control" th:field="*{groupName}"  />
+                            <input type="text" class="form-control"  th:field="*{groupName}"   />
+                            <input type="hidden" th:field="*{id}">
                             <label th:if="${#fields.hasErrors('groupName')}" th:errors="*{groupName}">groupName Error</label>
                         </div>
                         <div class=" form-group">
@@ -39,7 +40,15 @@
 
                         </div>
                         <div class="form-group">
+                            <div th:if="${groups.id<0}">
                             <input type="submit" class="btn btn-primary" value="Create" />
+                            </div>
+                            <div th:if="${groups.id>0}">
+                                <input type="submit" class="btn btn-primary" value="Update" />
+                                <a type="button" class="btn btn-primary" th:href="groups">Cancel</a>
+                            </div>
+
+
                         </div>
                     </form>
                 </div>

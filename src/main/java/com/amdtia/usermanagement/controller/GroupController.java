@@ -12,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.validation.Valid;
 
+import java.util.Optional;
+
 import static java.time.zone.ZoneRulesProvider.refresh;
 
 @Controller
@@ -43,9 +45,11 @@ public class GroupController implements WebMvcConfigurer {
     public String checkGroupInfo(@Valid Groups groups, BindingResult bindingResult){
 
 
-
         if(groups.getGroupName().length()<4){
             bindingResult.rejectValue("groupName", "error.groups","*Must have more than 4 characters");
+        }
+        if(groupRepository.findByGroupName(groups.getGroupName())!=null){
+            bindingResult.rejectValue("groupName", "error.groups","*This group already exists");
         }
         if(bindingResult.hasErrors()){
             return "addGroup";
@@ -68,12 +72,11 @@ public class GroupController implements WebMvcConfigurer {
 
 
 
-    @RequestMapping(value = "/update", method = RequestMethod.POST)
-    public String updateGroup(@RequestParam(name="Id")Long Id, @RequestParam(name="groupName")String groupName, @RequestParam(name="description")String description){
-        Long id = Id;
-        String name = groupName;
+    @PostMapping("update")
+    public String updateGroup(@RequestParam(name="groupName")String groupName,Model model){
 
-        boolean update = true;
+          model.addAttribute("groups",groupRepository.findByGroupName(groupName));
+
         return "addGroup";
     }
 

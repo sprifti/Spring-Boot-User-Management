@@ -45,9 +45,9 @@
                         <td scope="col" th:text="${groups.description}">4444</td>
                         <td>
                             <form th:action="@{/update}"  method="POST">
-                                <input type="hidden" th:value="*{groups.Id}" name="Id" >
+                                <!--<input type="hidden" th:value="*{groups.Id}" name="Id" >-->
                                 <input type="hidden" th:value="*{groups.groupName}" name="groupName" >
-                                <input type="hidden" th:value="*{groups.description}" name="description" >
+                                <!--<input type="hidden" th:value="*{groups.description}" name="description" >-->
                                 <input type="submit" value="Update" class="btn-link" >
                              </form>
 
