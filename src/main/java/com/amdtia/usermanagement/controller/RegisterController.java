@@ -43,18 +43,28 @@ public class RegisterController implements WebMvcConfigurer {
     @PostMapping("register")
     public String updateOrSave(@RequestParam(name="id")Long id,@Valid  User user, BindingResult bindingResult){
         if(id==null){
-            validateRegister(user,bindingResult);
+            if(validateRegister(user,bindingResult)){
+                userRepository.save(user);
+                return "redirect:users";
+            }else{
+                return "register";
+            }
         }
         else
-            if(id>0){
-            validateUpdate(user,bindingResult);
+        {
+            if(validateUpdate(user,bindingResult)){
+                userRepository.save(user);
+                return "redirect:users";
+            } else
+                return "register";
+
         }
-        //return a view
+
     }
 
 
 
-    public String validateRegister(@Valid User user, BindingResult bindingResult){
+    public boolean validateRegister(@Valid User user, BindingResult bindingResult){
         if (user.getPassword().length() < 8) {
             bindingResult.rejectValue("password", "error.user", "*Password must contain more than 8 characters");
         }
@@ -68,26 +78,29 @@ public class RegisterController implements WebMvcConfigurer {
         }
 
         if(bindingResult.hasErrors()){
-            return "register";
+            return false;
         }
         else{
-            userRepository.save(user);
-            return "redirect:users";
+            return true;
         }
     }
 
 
 
-    public String validateUpdate(@Valid User user, BindingResult bindingResult){
+    public boolean validateUpdate(@Valid User user, BindingResult bindingResult){
 
-        User users = userRepository.findByEmail(user.getEmail());
+        Optional<User> users = userRepository.findById(user.getId());
 
-        if(users.getId()>0){
+        if(!users.get().getEmail().equals(user.getEmail()) && userRepository.findByEmail(user.getEmail())!=null ){
             bindingResult.rejectValue("email", "error.user", "*An account already exists with this email.");
         }
+        if(!users.get().getUsername().equals(user.getUsername()) && userRepository.findByUsername(user.getUsername())!=null ){
+            bindingResult.rejectValue("username", "error.user", "*An account already exists with this username.");
+        }
+
         if(user.getPassword().equals("")){
 
-            user.setPassword(users.getPassword());
+            user.setPassword(users.get().getPassword());
         }
         else{
             if (user.getPassword().length() < 8) {
@@ -97,12 +110,11 @@ public class RegisterController implements WebMvcConfigurer {
 
 
         if(bindingResult.hasErrors()){
-            return "register";
+            return false;
         }
         else {
 
-            userRepository.save(user);
-            return "redirect:users";
+            return true;
 
         }
 
