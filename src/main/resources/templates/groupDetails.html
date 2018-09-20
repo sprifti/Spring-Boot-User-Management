@@ -3,38 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Home</title>
+    <title>Group detail</title>
 
 </head>
-
 <body>
-
 <nav class="navbar navbar-default">
     <div class="container-fluid">
         <div class="navbar-header">
             <a th:href="@{/mainPage}" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> Home</a>
         </div>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a th:href="@{/index}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
-        </ul>
+
     </div>
+
 </nav>
 
-<div class="container-fluid">
-
+<div class="container-fluid" >
     <div class="row">
         <div class="col-md-3"></div>
         <div class="col-md-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4 style="margin-left:40%;">Profile</h4>
+                    <h4 style="margin-left:40%;">Group details</h4>
                 </div>
                 <div class="panel-body ">
-                    <img class="col-md-6"  src="profile.jpg">
-                    <label>First Name:</label>
-                    <span th:text="${user.firstName}">User</span> <hr />
-                    <label>Last Name:</label>
-                    <span th:text="${user.lastName}">User</span> <hr>
+                    <label>Group name:</label>
+                    <span th:text="${groups.groupName}">group</span> <hr />
+                    <label>Description:</label>
+                    <span th:text="${groups.description}">group</span> <hr>
 
                 </div>
             </div>
@@ -50,27 +45,29 @@
         <div class="col-md-4">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h4 style="margin-left:40%;">Groups</h4>
+                    <h4 style="margin-left:40%;">Persmissions</h4>
                 </div>
                 <div class="panel-body">
                     <h4>Member of:</h4>
                     <div></div> <!--groups ne te cilat ben pjese user-->
                     <div>
-                        <label>Add user to groups</label>
-                        <form th:action="@{addUserToGroup}" method="POST" >
-                            <input type="hidden" th:field="${user.id}" name="userId">
-                        <select   name="Groups"  style="width: 100px; height: 33px">
+                        <label>Add permissions to group</label>
+                        <form th:action="@{addpermissions}" method="POST" >
+                            <input type="hidden" th:field="${groups.id}" name="userId">
+                            <select   name="Permission"  style="width: 100px; height: 33px">
 
-                        <option  th:each="groups : ${groups}" th:value="${groups.Id}" th:text="${groups.groupName}">Group</option>
-                        </select>
+                                <option  th:each="permissions : ${permissions}" th:value="${permissions.Id}" th:text="${permissions.title}">Group</option>
+                            </select>
 
-                        <input type="submit" class="btn btn-primary" value="Add">
+                            <input type="submit" class="btn btn-primary" value="Add">
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-</div>
+    </div>
+
+
 </div>
 
 

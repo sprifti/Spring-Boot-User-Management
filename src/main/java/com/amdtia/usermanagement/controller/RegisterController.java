@@ -65,6 +65,7 @@ public class RegisterController implements WebMvcConfigurer {
 
 
     public boolean validateRegister(@Valid User user, BindingResult bindingResult){
+
         if (user.getPassword().length() < 8) {
             bindingResult.rejectValue("password", "error.user", "*Password must contain more than 8 characters");
         }

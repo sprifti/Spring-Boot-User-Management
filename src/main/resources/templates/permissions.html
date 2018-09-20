@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <title>Permissions</title>
+
+</head>
+<body>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a th:href="@{/mainPage}" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> Home</a>
+        </div>
+
+    </div>
+
+</nav>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+
+            <a style="margin-top: 10%" class="btn btn-primary" th:href="@{/showPermissions}" >Add Permission</a>
+        </div>
+    </div>
+    <div class="row" style="margin-top: 5%">
+        <div class="col-md-2"></div>
+        <div class="col-md-6">
+
+            <h3>Permissions</h3>
+
+            <table class="table">
+                <thead class="thead-dark">
+                <tr scope="row">
+                    <td scope="col">Id</td>
+                    <td scope="col">Title</td>
+                    <td scope="col">Description</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr scope="row" th:each="permissions : ${permissions}">
+                    <td scope="col" th:text="${permissions.Id}">1</td>
+                    <td scope="col" th:text="${permissions.title}">123</td>
+                    <td scope="col" th:text="${permissions.description}">4444</td>
+                    <td>
+                        <form th:action="@{/updatePermission}"  method="POST">
+
+                            <input type="hidden" th:value="*{permissions.title}" name="title" >
+
+                            <input type="submit" value="Update" class="btn-link" >
+                        </form>
+
+                    </td>
+                    <td>
+
+                        <form th:action="@{/deletePermission}" method="POST">
+                            <input type="hidden" th:value="${permissions.Id}" name="id" >
+                            <input class="btn-link" type="submit" value="Delete">
+                        </form>
+
+                    </td>
+
+                </tr>
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

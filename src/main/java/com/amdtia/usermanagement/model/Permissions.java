@@ -1,6 +1,7 @@
 package com.amdtia.usermanagement.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -9,9 +10,12 @@ import java.util.Set;
 public class Permissions {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotBlank
+    @Column(unique = true)
     private String title;
+    @NotBlank
     private String description;
     @ManyToMany
     @JoinTable(name = "groups_permissions", joinColumns = @JoinColumn(name = "permissions_id"),
@@ -22,6 +26,9 @@ public class Permissions {
     public Permissions(String title, String description) {
         this.title = title;
         this.description = description;
+    }
+
+    public Permissions() {
     }
 
     public Long getId() {

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-    <title>Add Group</title>
+    <title>Add Permission</title>
 
 </head>
 <body>
@@ -23,15 +23,15 @@
         <div class="col-md-4"></div>
         <div class="col-md-4">
             <div class="panel panel-default">
-                <div class="panel-heading"><h4 th:if="${groups.id<0}" >Create a new group</h4> <h4 th:if="${groups.id>0}">Update group</h4></div>
+                <div class="panel-heading"><h4  >Add a new permission</h4></div>
                 <div class="panel-body">
-                    <form th:action="@{/addGroups}" th:object="${groups}" method="post" >
+                    <form th:action="@{/addPermissions}" th:object="${permissions}" method="post" >
 
                         <div class=" form-group" >
-                            <label>Name</label>
-                            <input type="text" class="form-control"  th:field="*{groupName}"   />
+                            <label>Title</label>
+                            <input type="text" class="form-control"  th:field="*{title}"   />
                             <input type="hidden" th:field="*{id}" name="id">
-                            <label th:if="${#fields.hasErrors('groupName')}" th:errors="*{groupName}">groupName Error</label>
+                            <label th:if="${#fields.hasErrors('title')}" th:errors="*{title}">groupName Error</label>
                         </div>
                         <div class=" form-group">
                             <label>Description</label><br />
@@ -40,13 +40,13 @@
 
                         </div>
                         <div class="form-group">
-                            <div th:if="${groups.id==null}">
-                            <input type="submit" class="btn btn-primary" value="Create" />
+                            <div >
+                                <input type="submit" class="btn btn-primary" value="Create" />
                             </div>
-                            <div th:if="${groups.id>0}">
-                                <input type="submit" class="btn btn-primary" value="Update" />
-                                <a type="button" class="btn btn-primary" th:href="@{/groups}">Cancel</a>
-                            </div>
+                            <!--<div th:if="${groups.id>0}">-->
+                                <!--<input type="submit" class="btn btn-primary" value="Update" />-->
+                                <!--<a type="button" class="btn btn-primary" th:href="@{/groups}">Cancel</a>-->
+                            <!--</div>-->
 
 
                         </div>
