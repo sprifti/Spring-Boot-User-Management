@@ -54,14 +54,16 @@
                 </div>
                 <div class="panel-body">
                     <h4>Member of:</h4>
-                    <div></div> <!--groups ne te cilat ben pjese user-->
+                    <div>
+
+                    </div>
                     <div>
                         <label>Add user to groups</label>
-                        <form th:action="@{addUserToGroup}" method="POST" >
-                            <input type="hidden" th:field="${user.id}" name="userId">
-                        <select   name="Groups"  style="width: 100px; height: 33px">
+                        <form th:action="@{/addUserToGroup}"  method="POST" >
+                            <input type="hidden" th:field="${user.email}" name="email">
+                        <select  name="id" style="width: 100px; height: 33px">
+                            <option  th:each="groups : ${groups}" th:value="${groups.id}" th:text="${groups.groupName}"  >Group</option>
 
-                        <option  th:each="groups : ${groups}" th:value="${groups.Id}" th:text="${groups.groupName}">Group</option>
                         </select>
 
                         <input type="submit" class="btn btn-primary" value="Add">

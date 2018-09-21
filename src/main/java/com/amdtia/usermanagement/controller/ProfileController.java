@@ -25,9 +25,9 @@ public class ProfileController  {
 
 
     @PostMapping("profile")
-    public String getProfile(@RequestParam(name = "email")String email, Model model, Model model1){
+    public String getProfile(@RequestParam(name = "email")String email, Model model){
         model.addAttribute("user",userRepository.findByEmail(email));
-        model1.addAttribute("groups",groupRepository.findAll());
+        model.addAttribute("groups",groupRepository.findAll());
 
         return "profile";
     }

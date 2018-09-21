@@ -48,15 +48,14 @@
                     <h4 style="margin-left:40%;">Persmissions</h4>
                 </div>
                 <div class="panel-body">
-                    <h4>Member of:</h4>
+                    <h4>Permissions added</h4>
                     <div></div> <!--groups ne te cilat ben pjese user-->
                     <div>
                         <label>Add permissions to group</label>
-                        <form th:action="@{addpermissions}" method="POST" >
-                            <input type="hidden" th:field="${groups.id}" name="userId">
-                            <select   name="Permission"  style="width: 100px; height: 33px">
-
-                                <option  th:each="permissions : ${permissions}" th:value="${permissions.Id}" th:text="${permissions.title}">Group</option>
+                        <form th:action="@{addPermissionsToGroup}" method="POST" >
+                            <input type="hidden" th:field="${groups.groupName}" name="groupName">
+                            <select   name="id"  style="width: 100px; height: 33px">
+                                <option  th:each="permissions : ${permissions}" th:value="${permissions.id}" th:text="${permissions.title}">Group</option>
                             </select>
 
                             <input type="submit" class="btn btn-primary" value="Add">

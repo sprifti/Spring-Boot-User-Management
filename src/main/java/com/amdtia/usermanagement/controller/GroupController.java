@@ -135,6 +135,18 @@ public class GroupController implements WebMvcConfigurer {
         return "addGroup";
     }
 
+    @PostMapping("addPermissionsToGroup")
+    public String addPermissions(@RequestParam(name="groupName")String groupName, @RequestParam(name="id")Long id){
+
+        Groups groups = groupRepository.findByGroupName(groupName);
+        Optional<Permissions> permissions = permissionRepository.findById(id);
+
+       permissions.get().getGroups().add(groups);
+        permissionRepository.save(permissions.get());
+
+        return"redirect:mainPage";
+    }
+
 
 
 

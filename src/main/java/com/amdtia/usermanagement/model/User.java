@@ -98,6 +98,14 @@ public class User {
         this.lastName = lastName;
     }
 
+    public Set<Groups> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(Set<Groups> groups) {
+        this.groups = groups;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

@@ -19,13 +19,13 @@ public class Groups {
 
     @NotBlank
     private String description;
+
     @ManyToMany
     @JoinTable(name = "groups_user", joinColumns = @JoinColumn(name = "groups_id"),
     inverseJoinColumns = @JoinColumn(name = "users_id"))
     private Set<User> users = new HashSet<>();
 
     @ManyToMany(mappedBy = "groups")
-
     private Set<Permissions> permissions = new HashSet<>();
 
 
