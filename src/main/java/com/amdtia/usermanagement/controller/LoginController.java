@@ -2,6 +2,7 @@ package com.amdtia.usermanagement.controller;
 
 import com.amdtia.usermanagement.model.User;
 import com.amdtia.usermanagement.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("login")
+@RequestMapping("loginPage")
 public class LoginController implements WebMvcConfigurer {
 
     UserRepository userRepository;
@@ -26,14 +27,14 @@ public class LoginController implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("login").setViewName("login");
+        registry.addViewController("loginPage").setViewName("loginPage");
     }
 
     @GetMapping
     public String getLogin(Model model){
         User user = new User();
         model.addAttribute("user",user);
-        return "login";
+        return "loginPage";
     }
 
 
@@ -47,8 +48,9 @@ public class LoginController implements WebMvcConfigurer {
             bindingResult.rejectValue("email", "error.user", "*This account doesn't exists");
         }
         else{
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-            if(user.getPassword().equals( users.getPassword())){
+            if(encoder.matches(users.getPassword(), user.getPassword())){
                 return "redirect:mainPage";
             }
             else{
@@ -57,7 +59,7 @@ public class LoginController implements WebMvcConfigurer {
 
         }
         if(bindingResult.hasErrors()){
-            return "login";
+            return "loginPage";
         }
         return "redirect:mainPage";
     }

@@ -59,7 +59,9 @@ public class UserController implements WebMvcConfigurer  {
 
     if( groups.isPresent()) {
         groups.get().getUser().add(user);
+        System.out.println(user);
         groupRepository.save(groups.get());
+
     }
         return "redirect:mainPage";
     }

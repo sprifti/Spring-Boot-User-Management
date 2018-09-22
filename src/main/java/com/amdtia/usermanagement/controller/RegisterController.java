@@ -4,6 +4,7 @@ package com.amdtia.usermanagement.controller;
 import com.amdtia.usermanagement.model.User;
 import com.amdtia.usermanagement.repository.UserRepository;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -82,6 +83,8 @@ public class RegisterController implements WebMvcConfigurer {
             return false;
         }
         else{
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return true;
         }
     }
