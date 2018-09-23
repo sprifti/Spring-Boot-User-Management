@@ -59,11 +59,24 @@ public class UserController implements WebMvcConfigurer  {
 
     if( groups.isPresent()) {
         groups.get().getUser().add(user);
-        System.out.println(user);
         groupRepository.save(groups.get());
 
     }
-        return "redirect:mainPage";
+        return "redirect:users";
     }
+
+//    @PostMapping("remove")
+//    public String removeFromGroup(@RequestParam(name="id")Long id, @RequestParam(name = "email")String email){
+//        User user = userRepository.findByEmail(email);
+//
+//        Optional<Groups> groups = groupRepository.findById((long)id);
+//
+//        if( groups.isPresent()) {
+//            groups.get().getUser().add(user);
+//            user.getGroups().remove(groups);
+//
+//        }
+//        return "redirect:users";
+//    }
 
 }

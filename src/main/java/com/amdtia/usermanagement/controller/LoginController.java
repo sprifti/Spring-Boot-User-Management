@@ -50,7 +50,7 @@ public class LoginController implements WebMvcConfigurer {
         else{
             BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-            if(encoder.matches(users.getPassword(), user.getPassword())){
+            if(encoder.matches(user.getPassword(), users.getPassword())){
                 return "redirect:mainPage";
             }
             else{

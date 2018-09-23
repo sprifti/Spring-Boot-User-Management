@@ -54,9 +54,17 @@
                 </div>
                 <div class="panel-body">
                     <h4>Member of:</h4>
-                    <div>
-                            <span th:text="${user.groups}"></span>
+                    <div th:each="groups : ${user.groups}">
+                            <span th:text="${groups.getGroupName()}"></span>
+                        <!--<form th:action="@{/remove}" method="POST">-->
+
+                            <!--<input type="hidden" th:value="${user.email}" name="email">-->
+                            <!--<input type="hidden" th:value="${groups.id}" name="id">-->
+                            <!--<input class="btn-link" type="submit" value="Remove">-->
+                         <!--</form>-->
+                        <br/>
                     </div>
+                    <br/>
                     <div>
                         <label>Add user to groups</label>
                         <form th:action="@{/addUserToGroup}"  method="POST" >

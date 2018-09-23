@@ -28,8 +28,6 @@ public class ProfileController  {
     public String getProfile(@RequestParam(name = "email")String email, Model model){
         model.addAttribute("user",userRepository.findByEmail(email));
         model.addAttribute("groups",groupRepository.findAll());
-//        model.addAttribute("groupName",groupRepository.findByUserId((long) 1));
-
         return "profile";
     }
 
