@@ -29,7 +29,7 @@ public class User {
     @NotBlank
     private String lastName;
 
-    @ManyToMany(fetch=FetchType.LAZY, mappedBy = "users")
+    @ManyToMany(mappedBy = "users" )
     private Set<Groups> groups = new HashSet<>();
 
     public User(String email, String username, String password, String firstName, String lastName) {

@@ -1,6 +1,7 @@
 package com.amdtia.usermanagement.controller;
 
 import com.amdtia.usermanagement.model.Groups;
+import com.amdtia.usermanagement.model.Permissions;
 import com.amdtia.usermanagement.model.User;
 import com.amdtia.usermanagement.repository.GroupRepository;
 import com.amdtia.usermanagement.repository.UserRepository;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -63,7 +66,20 @@ public class UserController implements WebMvcConfigurer  {
         groupRepository.save(groups.get());
 
     }
-        return "redirect:mainPage";
+        return "redirect:users";
+    }
+
+
+    public String getInfo(User user, Model model){
+            List<Permissions> permissions = null;
+        for (Groups groups : user.getGroups()) {
+            for (Permissions permission: groups.getPermissions()) {
+                permissions.add(permission);
+            }
+
+        }
+        model.addAttribute("permissions", permissions);
+        return"redirect:users";
     }
 
 }

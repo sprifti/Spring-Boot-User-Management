@@ -55,7 +55,22 @@
                 <div class="panel-body">
                     <h4>Member of:</h4>
                     <div>
-                            <span th:text="${user.groups}"></span>
+                        <table class="table" >
+                            <thead class="thead-dark">
+                            <tr scope="row">
+                                <td scope="col">Group name</td>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr scope="row" th:each="groups : ${user.groups}">
+                                <td scope="col" th:text="${groups.getGroupName()}">1</td>
+                                <span th:each="permission: ${groups.getPermissions()}">
+                                <td scope="col" th:text="${permission.getTitle()}">1</td>
+                                </span>
+                            </tr>
+                            </tbody>
+                        </table>
+
                     </div>
                     <div>
                         <label>Add user to groups</label>
@@ -74,6 +89,11 @@
         </div>
 </div>
 </div>
+<!--<div>-->
+                    <!--<span th:each="permission : ${permissions}">-->
+                        <!--<span th:text="${permission.getTitle()}"></span>-->
+                    <!--</span>-->
+<!--</div>-->
 
 
 </body>

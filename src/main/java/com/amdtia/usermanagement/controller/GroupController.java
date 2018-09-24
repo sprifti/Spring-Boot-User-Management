@@ -144,7 +144,7 @@ public class GroupController implements WebMvcConfigurer {
        permissions.get().getGroups().add(groups);
         permissionRepository.save(permissions.get());
 
-        return"redirect:mainPage";
+        return"redirect:groups";
     }
 
 
