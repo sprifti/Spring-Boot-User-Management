@@ -1,19 +1,20 @@
 package com.amdtia.usermanagement.controller;
 
 import com.amdtia.usermanagement.model.Groups;
+import com.amdtia.usermanagement.model.Permissions;
 import com.amdtia.usermanagement.model.User;
 import com.amdtia.usermanagement.repository.GroupRepository;
 import com.amdtia.usermanagement.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -59,24 +60,26 @@ public class UserController implements WebMvcConfigurer  {
 
     if( groups.isPresent()) {
         groups.get().getUser().add(user);
+        System.out.println(user);
         groupRepository.save(groups.get());
 
     }
         return "redirect:users";
     }
 
-//    @PostMapping("remove")
-//    public String removeFromGroup(@RequestParam(name="id")Long id, @RequestParam(name = "email")String email){
-//        User user = userRepository.findByEmail(email);
-//
-//        Optional<Groups> groups = groupRepository.findById((long)id);
-//
-//        if( groups.isPresent()) {
-//            groups.get().getUser().add(user);
-//            user.getGroups().remove(groups);
-//
-//        }
-//        return "redirect:users";
-//    }
+
+    public List<Permissions> getInfo(User user){
+        List<Permissions> permissions = new ArrayList<>();
+        for (Groups groups : user.getGroups()) {
+            for (Permissions permission: groups.getPermissions()) {
+                if(!permissions.contains(permission)){
+                    permissions.add(permission);
+                }
+            }
+        }
+        return permissions;
+    }
+
+
 
 }

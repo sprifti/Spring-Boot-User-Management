@@ -49,8 +49,20 @@
                 </div>
                 <div class="panel-body">
                     <h4>Permissions added</h4>
-                    <div th:each="permissions : ${groups.permissions}">
-                        <span th:text="${permissions.getTitle()}"><a href="#">Remove</a></span>  <br/>
+                    <div>
+                            <table class="table" >
+                                <thead class="thead-dark">
+                                <tr scope="row">
+                                    <td scope="col">Permission title</td>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr scope="row" th:each="permission : ${groups.permissions}">
+                                    <td scope="col" th:text="${permission.getTitle()}">1</td>
+                                </tr>
+                                </tbody>
+                            </table>
+
                     </div>
                     <div>
                         <label>Add permissions to group</label>

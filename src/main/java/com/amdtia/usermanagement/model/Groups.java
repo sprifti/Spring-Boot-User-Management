@@ -1,5 +1,8 @@
 package com.amdtia.usermanagement.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -26,6 +29,7 @@ public class Groups {
     private Set<User> users = new HashSet<>();
 
     @ManyToMany(mappedBy = "groups")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Permissions> permissions = new HashSet<>();
 
 
