@@ -16,7 +16,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("loginPage")
+@RequestMapping("/loginPage")
 public class LoginController implements WebMvcConfigurer {
 
     UserRepository userRepository;

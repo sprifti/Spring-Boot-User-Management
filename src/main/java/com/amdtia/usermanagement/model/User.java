@@ -1,5 +1,8 @@
 package com.amdtia.usermanagement.model;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -30,6 +33,7 @@ public class User {
     private String lastName;
 
     @ManyToMany(mappedBy = "users" )
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<Groups> groups = new HashSet<>();
 
     public User(String email, String username, String password, String firstName, String lastName) {

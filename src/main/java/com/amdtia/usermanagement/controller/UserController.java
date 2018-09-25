@@ -7,8 +7,6 @@ import com.amdtia.usermanagement.repository.GroupRepository;
 import com.amdtia.usermanagement.repository.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -70,16 +68,18 @@ public class UserController implements WebMvcConfigurer  {
     }
 
 
-    public String getInfo(User user, Model model){
-            List<Permissions> permissions = null;
+    public List<Permissions> getInfo(User user){
+        List<Permissions> permissions = new ArrayList<>();
         for (Groups groups : user.getGroups()) {
             for (Permissions permission: groups.getPermissions()) {
-                permissions.add(permission);
+                if(!permissions.contains(permission)){
+                    permissions.add(permission);
+                }
             }
-
         }
-        model.addAttribute("permissions", permissions);
-        return"redirect:users";
+        return permissions;
     }
+
+
 
 }
