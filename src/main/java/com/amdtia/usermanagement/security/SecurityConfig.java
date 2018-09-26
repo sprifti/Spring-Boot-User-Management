@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -18,38 +19,52 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Bean
+    public static PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(10);
+    }
+
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(jdbcTemplate.getDataSource())
                 .usersByUsernameQuery(
-                        "select username,password from user where username=?")
+                        "select username,password, 'true' from user where username=?")
                 .authoritiesByUsernameQuery(
-                        "select username, title from user u inner join groups_user gu on u.id = gu.user_id inner join groups g on gu.groups_id = g.id where username=?")
-                .passwordEncoder(new BCryptPasswordEncoder());
+                        "select username, title, 'true' from user u inner join groups_user gu on u.id = gu.users_id inner join groups g on gu.groups_id = g.id inner join groups_permissions gp on g.id = gp.group_id inner join permissions p on gp.permissions_id = p.id where username=?")
+                .passwordEncoder(passwordEncoder());
     }
 
-    @Override
+
+        @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .mvcMatchers("/*").authenticated()
+                .antMatchers(
+                        "/register"
+                        ).permitAll()
+                .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .loginPage("/loginPage")
                 .permitAll()
                 .and()
                 .logout()
+                .invalidateHttpSession(true)
+                .clearAuthentication(true)
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutSuccessUrl("/loginPage?logout")
                 .permitAll();
+
 
         http.authorizeRequests().mvcMatchers("/*").authenticated().and().httpBasic();
     }
 
-    @Bean
-    @Override
-    public JdbcUserDetailsManager userDetailsService() {
-        JdbcUserDetailsManager manager = new JdbcUserDetailsManager();
-        manager.setJdbcTemplate(jdbcTemplate);
-        return manager;
-    }
+//    @Bean
+//    @Override
+//    public JdbcUserDetailsManager userDetailsService() {
+//        JdbcUserDetailsManager manager = new JdbcUserDetailsManager();
+//        manager.setJdbcTemplate(jdbcTemplate);
+//        return manager;
+//    }
 
 }

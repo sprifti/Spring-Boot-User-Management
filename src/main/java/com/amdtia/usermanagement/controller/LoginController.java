@@ -2,6 +2,8 @@ package com.amdtia.usermanagement.controller;
 
 import com.amdtia.usermanagement.model.User;
 import com.amdtia.usermanagement.repository.UserRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -42,26 +44,31 @@ public class LoginController implements WebMvcConfigurer {
     @PostMapping
     public String loginUser(@Valid User user, BindingResult bindingResult,Model model){
 
-        User users = userRepository.findByEmail(user.getEmail());
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String name = auth.getName();
+        //find all permissions and then based on those permissions redirect them to different pages//
 
-        if(userRepository.findByEmail(user.getEmail())==null){
-            bindingResult.rejectValue("email", "error.user", "*This account doesn't exists");
-        }
-        else{
-            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-
-            if(encoder.matches(user.getPassword(), users.getPassword())){
-                return "redirect:mainPage";
-            }
-            else{
-                bindingResult.rejectValue("password", "error.user", "*Password incorrect");
-            }
-
-        }
-        if(bindingResult.hasErrors()){
-            return "loginPage";
-        }
-        return "mainPage";
+        return"mainPage";
+//        User users = userRepository.findByEmail(user.getEmail());
+//
+//        if(userRepository.findByEmail(user.getEmail())==null){
+//            bindingResult.rejectValue("email", "error.user", "*This account doesn't exists");
+//        }
+//        else{
+//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+//
+//            if(encoder.matches(user.getPassword(), users.getPassword())){
+//                return "redirect:mainPage";
+//            }
+//            else{
+//                bindingResult.rejectValue("password", "error.user", "*Password incorrect");
+//            }
+//
+//        }
+//        if(bindingResult.hasErrors()){
+//            return "loginPage";
+//        }
+//        return "mainPage";
     }
 
 

@@ -5,7 +5,10 @@ import com.amdtia.usermanagement.model.Permissions;
 import com.amdtia.usermanagement.model.User;
 import com.amdtia.usermanagement.repository.GroupRepository;
 import com.amdtia.usermanagement.repository.UserRepository;
+import com.amdtia.usermanagement.security.UserRestictionProvider;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +23,7 @@ import java.util.Optional;
 public class ProfileController  {
     UserRepository userRepository;
     GroupRepository groupRepository;
-
+    private UserRestictionProvider userRestictionProvider;
     public ProfileController(UserRepository userRepository, GroupRepository groupRepository) {
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
@@ -30,9 +33,11 @@ public class ProfileController  {
 
     @PostMapping("profile")
     public String getProfile(@RequestParam(name = "email")String email, Model model){
+
+
         model.addAttribute("user",userRepository.findByEmail(email));
         model.addAttribute("groups",groupRepository.findAll());
-        User user = userRepository.findByEmail(email);
+        User user = userRepository.findByUsername(email);
 
         //permissions te nje useri tek te gjith grupet//
         List<Permissions> permissions = new ArrayList<>();
