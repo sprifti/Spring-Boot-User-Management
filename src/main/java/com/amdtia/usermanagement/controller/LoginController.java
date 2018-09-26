@@ -61,7 +61,7 @@ public class LoginController implements WebMvcConfigurer {
         if(bindingResult.hasErrors()){
             return "loginPage";
         }
-        return "redirect:mainPage";
+        return "mainPage";
     }
 
 

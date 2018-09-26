@@ -46,7 +46,7 @@ public class RegisterController implements WebMvcConfigurer {
         if(id==null){
             if(validateRegister(user,bindingResult)){
                 userRepository.save(user);
-                return "redirect:login";
+                return "redirect:loginPage";
             }else{
                 return "register";
             }
@@ -83,8 +83,8 @@ public class RegisterController implements WebMvcConfigurer {
             return false;
         }
         else{
-//            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-//            user.setPassword(passwordEncoder.encode(user.getPassword()));
+            BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return true;
         }
     }
