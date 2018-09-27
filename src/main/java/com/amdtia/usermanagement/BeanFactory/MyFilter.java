@@ -29,14 +29,15 @@ public class MyFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        List<String> roles = (List) auth.getAuthorities();
+
 
             String url = ((HttpServletRequest)request).getRequestURI().toString();
-//            System.out.println(url);
+
+        HttpServletResponse res = (HttpServletResponse) response;
+            userRestictionProvider.findURL(url);
 
 
-            HttpServletResponse res = (HttpServletResponse) response;
+
             chain.doFilter(request, res);
 
     }

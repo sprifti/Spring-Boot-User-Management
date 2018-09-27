@@ -22,7 +22,10 @@ public class Permissions {
             inverseJoinColumns = @JoinColumn(name = "group_id"))
     private Set<Groups> groups = new HashSet<>();
 
-
+    @ManyToMany
+    @JoinTable(name = "paths_permissions", joinColumns = @JoinColumn(name = "permissions_id"),
+            inverseJoinColumns = @JoinColumn(name = "paths_id"))
+    private Set<Paths> paths = new HashSet<>();
 
     public Permissions(@NotBlank String title) {
         this.title = title;
@@ -69,7 +72,13 @@ public class Permissions {
         this.groups = groups;
     }
 
+    public Set<Paths> getPaths() {
+        return paths;
+    }
 
+    public void setPaths(Set<Paths> paths) {
+        this.paths = paths;
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -14,7 +14,16 @@ import java.util.List;
 @Component
 public class UserRestictionProvider {
 
+    public void findURL(String url){
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        List<String> roles = (List) auth.getAuthorities();
+        for(int i=0; i<roles.size(); i++){
+            if(){
+                    System.out.println(url);
+                }
+        }
 
+    }
 
 //    private UserRepository userRepository;
 //    //finds the name of the user who is logged in.
