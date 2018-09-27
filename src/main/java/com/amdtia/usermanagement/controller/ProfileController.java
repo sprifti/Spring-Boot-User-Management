@@ -24,6 +24,7 @@ public class ProfileController  {
     UserRepository userRepository;
     GroupRepository groupRepository;
     private UserRestictionProvider userRestictionProvider;
+
     public ProfileController(UserRepository userRepository, GroupRepository groupRepository) {
         this.userRepository = userRepository;
         this.groupRepository = groupRepository;
@@ -37,7 +38,7 @@ public class ProfileController  {
 
         model.addAttribute("user",userRepository.findByEmail(email));
         model.addAttribute("groups",groupRepository.findAll());
-        User user = userRepository.findByUsername(email);
+        User user = userRepository.findByEmail(email);
 
         //permissions te nje useri tek te gjith grupet//
         List<Permissions> permissions = new ArrayList<>();

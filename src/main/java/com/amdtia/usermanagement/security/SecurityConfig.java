@@ -35,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     }
 
 
-        @Override
+    @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
@@ -59,12 +59,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
         http.authorizeRequests().mvcMatchers("/*").authenticated().and().httpBasic();
     }
 
-//    @Bean
-//    @Override
-//    public JdbcUserDetailsManager userDetailsService() {
-//        JdbcUserDetailsManager manager = new JdbcUserDetailsManager();
-//        manager.setJdbcTemplate(jdbcTemplate);
-//        return manager;
-//    }
+
 
 }

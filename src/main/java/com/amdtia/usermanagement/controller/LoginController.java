@@ -18,7 +18,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/loginPage")
+//@RequestMapping("/loginPage")
 public class LoginController implements WebMvcConfigurer {
 
     UserRepository userRepository;
@@ -32,7 +32,7 @@ public class LoginController implements WebMvcConfigurer {
         registry.addViewController("loginPage").setViewName("loginPage");
     }
 
-    @GetMapping
+    @GetMapping("/loginPage")
     public String getLogin(Model model){
         User user = new User();
         model.addAttribute("user",user);
@@ -41,35 +41,16 @@ public class LoginController implements WebMvcConfigurer {
 
 
 
-    @PostMapping
-    public String loginUser(@Valid User user, BindingResult bindingResult,Model model){
+    @PostMapping("/loginPage")
+    public String loginUser(){
 
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String name = auth.getName();
+        return "redirect:mainPage";
+    }
         //find all permissions and then based on those permissions redirect them to different pages//
 
-        return"mainPage";
-//        User users = userRepository.findByEmail(user.getEmail());
-//
-//        if(userRepository.findByEmail(user.getEmail())==null){
-//            bindingResult.rejectValue("email", "error.user", "*This account doesn't exists");
-//        }
-//        else{
-//            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//
-//            if(encoder.matches(user.getPassword(), users.getPassword())){
-//                return "redirect:mainPage";
-//            }
-//            else{
-//                bindingResult.rejectValue("password", "error.user", "*Password incorrect");
-//            }
-//
-//        }
-//        if(bindingResult.hasErrors()){
-//            return "loginPage";
-//        }
-//        return "mainPage";
-    }
+
+
+
 
 
 }

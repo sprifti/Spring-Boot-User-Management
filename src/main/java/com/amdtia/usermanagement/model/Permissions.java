@@ -23,10 +23,16 @@ public class Permissions {
     private Set<Groups> groups = new HashSet<>();
 
 
+
+    public Permissions(@NotBlank String title) {
+        this.title = title;
+    }
+
     public Permissions(String title, String description) {
         this.title = title;
         this.description = description;
     }
+
 
     public Permissions() {
     }
@@ -62,6 +68,8 @@ public class Permissions {
     public void setGroups(Set<Groups> groups) {
         this.groups = groups;
     }
+
+
 
     @Override
     public boolean equals(Object o) {
