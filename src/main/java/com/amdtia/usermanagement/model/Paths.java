@@ -15,9 +15,11 @@ public class Paths {
     public Paths(String path) {
         this.path = path;
     }
-    @ManyToMany(mappedBy = "paths")
+    @ManyToMany(fetch = FetchType.EAGER,mappedBy = "paths")
     private Set<Permissions> permissions = new HashSet<>();
 
+    public Paths() {
+    }
 
     public Long getId() {
         return id;

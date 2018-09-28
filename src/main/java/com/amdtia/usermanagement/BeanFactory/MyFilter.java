@@ -29,16 +29,25 @@ public class MyFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
-
-
-            String url = ((HttpServletRequest)request).getRequestURI().toString();
+        String url = ((HttpServletRequest)request).getRequestURI().toString();
+//        System.out.println(url);
 
         HttpServletResponse res = (HttpServletResponse) response;
-            userRestictionProvider.findURL(url);
-
-
-
+        if(url.equals("/loginPage") || url.equals("/register")){
             chain.doFilter(request, res);
+        }
+        else{
+            if(userRestictionProvider.findURL(url)==true){
+                chain.doFilter(request, res);
+            }
+            else{
+                res.setContentType("showError");
+                res.sendError(HttpServletResponse.SC_BAD_REQUEST, "Request rejected an attempt to run commands was detected.");
+            }
+        }
+
+
+
 
     }
 

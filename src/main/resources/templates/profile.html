@@ -15,7 +15,7 @@
             <a th:href="@{/mainPage}" class="navbar-brand"><span class="glyphicon glyphicon-home"></span> Home</a>
         </div>
         <ul class="nav navbar-nav navbar-right">
-            <li><a th:href="@{/index}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
+            <li><a th:href="@{/logout}"><span class="glyphicon glyphicon-log-out"></span> Log Out</a></li>
         </ul>
     </div>
 </nav>
@@ -30,7 +30,7 @@
                     <h4 style="margin-left:40%;">Profile</h4>
                 </div>
                 <div class="panel-body ">
-                    <img class="col-md-6"  src="profile.jpg">
+                    <img class="col-md-6"  src="../profile.jpg">
                     <label>First Name:</label>
                     <span th:text="${user.firstName}">User</span> <hr />
                     <label>Last Name:</label>
@@ -58,6 +58,7 @@
                             </tr>
                             </thead>
                             <tbody>
+
                             <tr scope="row" th:each="groups : ${user.groups}">
                                 <td scope="col" th:text="${groups.getGroupName()}">1</td>
                                 <span th:each="permission: ${groups.getPermissions()}">
