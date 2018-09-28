@@ -30,8 +30,8 @@ public class MyFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         String url = ((HttpServletRequest)request).getRequestURI().toString();
-//        System.out.println(url);
 
+//if findURL returns true then the program allows user to access that url if not then it redirects them to the error page
         HttpServletResponse res = (HttpServletResponse) response;
         if(url.equals("/loginPage") || url.equals("/register")){
             chain.doFilter(request, res);

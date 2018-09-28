@@ -22,12 +22,12 @@ public class UserRestictionProvider {
     private PermissionRepository permissionRepository;
     public boolean findURL(String url){
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
+        //permissions that a user has are saved in authorities and we search for permission "ADMIN" or "EMPLOYEES"
         ArrayList<String> roles = new ArrayList<>();
        roles.add(auth.getAuthorities().toString());
 
         for(int i=0; i<roles.size(); i++){
-
+//if we find "ADMIN" we check the url that user wants to access with the url that an admin can access and if it's a match we return true with is used in the MyFilter class
             if(roles.get(i).contains("ADMIN")){
                 Permissions permissions = permissionRepository.findByTitle("ADMIN");
                 List<Paths> paths = new ArrayList<>();

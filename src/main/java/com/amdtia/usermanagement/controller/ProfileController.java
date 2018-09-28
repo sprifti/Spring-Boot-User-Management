@@ -28,6 +28,7 @@ public class ProfileController {
         this.groupRepository = groupRepository;
     }
 
+    //this is used for employees who can only access their profile//
     @GetMapping("profile")
     public String getProfile(Model model) {
 
@@ -37,7 +38,7 @@ public class ProfileController {
         model.addAttribute("groups", groupRepository.findAll());
         User user = userRepository.findByUsername(auth.getName());
 
-
+        //finds every permission that a user has//
         List<Permissions> permissions = new ArrayList<>();
         for (Groups groups : user.getGroups()) {
             for (Permissions permission : groups.getPermissions()) {
@@ -75,7 +76,7 @@ public class ProfileController {
         }
 
         model.addAttribute("permissions", permissions);
-//        model.addAttribute("groupName",groupRepository.findByUserId((long) 1));
+
 
         return "profile";
     }

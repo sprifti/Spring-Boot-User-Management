@@ -24,6 +24,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
         return new BCryptPasswordEncoder(10);
     }
 
+    //selecting user's username and password from database so the login can be done with this parameters//
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
         auth.jdbcAuthentication().dataSource(jdbcTemplate.getDataSource())
@@ -34,7 +35,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
                 .passwordEncoder(passwordEncoder());
     }
 
-
+//replacing the login page of Spring Security with my loginPage//
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
